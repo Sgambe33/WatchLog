@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       themeMode: ThemeMode.system,
-      home: const PageSelector(title: 'Flutter Demo Home Page'),
+      home: const PageSelector(),
     );
   }
 }

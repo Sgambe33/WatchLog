@@ -14,43 +14,51 @@ class MediaTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Stack(
+    return SizedBox(
+      width: 200.0, // Set the width to match the image width
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(
               children: [
-                Container(
-                  width: 185,
-                  height: 278,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage("https://image.tmdb.org/t/p/w500/$mediaPoster"),
-                      fit: BoxFit.contain,
-                    ),
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+                  child: Image.network(
+                    'https://image.tmdb.org/t/p/w500/7dFZJ2ZJJdcmkp05B9NWlqTJ5tq.jpg',
+                    width: 200.0,
+                    height: 270.0,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    color: Colors.black.withOpacity(0.5),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.star, color: Colors.yellow),
-                        Text(mediaRating.toStringAsFixed(1)),
-                      ],
-                    ),
-                  ),
+                Align(
+                  alignment: const AlignmentDirectional(1.0, -1.0),
+                  child: Padding(
+                      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 5.0, 5.0),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
+                        child: Chip(
+                          label: Text("7.4"),
+                          backgroundColor: Colors.transparent, // or any other color
+                        ),
+                      )),
                 ),
               ],
             ),
-          ),
-          Text(mediaTitle),
-        ],
+            const Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(5.0, 5.0, 5.0, 5.0),
+              child: Text(
+                'Chronicles of the Sun: Part cinq et sis et qatrevingt',
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

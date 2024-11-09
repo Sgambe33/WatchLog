@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple, brightness: Brightness.dark),
         useMaterial3: true,
       ),
-      themeMode: ThemeMode.system, // Automatically switch between light and dark mode
+      themeMode: ThemeMode.system,
       home: const PageSelector(title: 'Flutter Demo Home Page'),
     );
   }

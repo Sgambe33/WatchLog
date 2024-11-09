@@ -11,9 +11,7 @@ import 'discover_page.dart';
 import 'package:http/http.dart' as http;
 
 class PageSelector extends StatefulWidget {
-  const PageSelector({super.key, required this.title});
-
-  final String title;
+  const PageSelector({super.key});
 
   @override
   State<PageSelector> createState() => _PageSelectorState();
@@ -41,7 +39,7 @@ class _PageSelectorState extends State<PageSelector> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("MovieTrack"), actions: [
+        appBar: AppBar(title: const Text("WatchLog"), actions: [
           IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {

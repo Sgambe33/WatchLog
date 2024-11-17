@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:watchlog/page_selector.dart';
+import 'package:watchlog/pages/page_selector.dart';
 
 void main() {
   runApp(const MyApp());

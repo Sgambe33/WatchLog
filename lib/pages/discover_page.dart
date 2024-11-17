@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:watchlog/constants.dart';
-import 'package:watchlog/discover_page/media_tile.dart';
-import 'package:watchlog/tmdb_helper.dart';
+import 'package:watchlog/utils/constants.dart';
+import 'package:watchlog/pages/discover_page/media_tile.dart';
+import 'package:watchlog/utils/tmdb_helper.dart';
+
+import 'discover_page/tvseries_detail.dart';
 
 class DiscoverPage extends StatefulWidget {
   const DiscoverPage({super.key});
@@ -14,6 +16,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   bool _onTVPage = true;
   final TMDBHelper _tmdbHelper = TMDBHelper();
   final String _currentMonth = months[DateTime.now().month - 1];
+
   @override
   void initState() {
     super.initState();
@@ -32,11 +35,23 @@ class _DiscoverPageState extends State<DiscoverPage> {
               if (snapshot.connectionState == ConnectionState.done) {
                 var mediaList = snapshot.data?['results'];
                 return Row(
-                  children: List<MediaTile>.generate(mediaList.length, (index) {
-                    return MediaTile(
-                      mediaTitle: mediaList[index]['title'] ?? mediaList[index]['name'],
-                      mediaPoster: mediaList[index]['poster_path'],
-                      mediaRating: mediaList[index]['vote_average'],
+                  children: List<InkWell>.generate(mediaList.length, (index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TVSeriesDetail(
+                                tvSeriesId: mediaList[index]['id']),
+                          ),
+                        );
+                      },
+                      child: MediaTile(
+                        mediaTitle: mediaList[index]['title'] ??
+                            mediaList[index]['name'],
+                        mediaPoster: mediaList[index]['poster_path'],
+                        mediaRating: mediaList[index]['vote_average'],
+                      ),
                     );
                   }),
                 );
@@ -80,7 +95,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(_onTVPage ? '🔥 Popular TV Shows' : '🔥 Popular Movies', style: const TextStyle(fontSize: 24)),
+            Text(_onTVPage ? '🔥 Popular TV Shows' : '🔥 Popular Movies',
+                style: const TextStyle(fontSize: 24)),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: FutureBuilder(
@@ -89,9 +105,11 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   if (snapshot.connectionState == ConnectionState.done) {
                     var mediaList = snapshot.data?['results'];
                     return Row(
-                      children: List<MediaTile>.generate(mediaList.length, (index) {
+                      children:
+                          List<MediaTile>.generate(mediaList.length, (index) {
                         return MediaTile(
-                          mediaTitle: mediaList[index]['title'] ?? mediaList[index]['name'],
+                          mediaTitle: mediaList[index]['title'] ??
+                              mediaList[index]['name'],
                           mediaPoster: mediaList[index]['poster_path'],
                           mediaRating: mediaList[index]['vote_average'],
                         );
@@ -116,9 +134,11 @@ class _DiscoverPageState extends State<DiscoverPage> {
                     if (snapshot.connectionState == ConnectionState.done) {
                       var mediaList = snapshot.data?['results'];
                       return Row(
-                        children: List<MediaTile>.generate(mediaList.length, (index) {
+                        children:
+                            List<MediaTile>.generate(mediaList.length, (index) {
                           return MediaTile(
-                            mediaTitle: mediaList[index]['title'] ?? mediaList[index]['name'],
+                            mediaTitle: mediaList[index]['title'] ??
+                                mediaList[index]['name'],
                             mediaPoster: mediaList[index]['poster_path'],
                             mediaRating: mediaList[index]['vote_average'],
                           );
@@ -134,7 +154,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 ),
               ),
             ],
-            Text('New shows in $_currentMonth', style: const TextStyle(fontSize: 24)),
+            Text('New shows in $_currentMonth',
+                style: const TextStyle(fontSize: 24)),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: FutureBuilder(
@@ -143,9 +164,11 @@ class _DiscoverPageState extends State<DiscoverPage> {
                   if (snapshot.connectionState == ConnectionState.done) {
                     var mediaList = snapshot.data?['results'];
                     return Row(
-                      children: List<MediaTile>.generate(mediaList.length, (index) {
+                      children:
+                          List<MediaTile>.generate(mediaList.length, (index) {
                         return MediaTile(
-                          mediaTitle: mediaList[index]['title'] ?? mediaList[index]['name'],
+                          mediaTitle: mediaList[index]['title'] ??
+                              mediaList[index]['name'],
                           mediaPoster: mediaList[index]['poster_path'],
                           mediaRating: mediaList[index]['vote_average'],
                         );
@@ -160,7 +183,8 @@ class _DiscoverPageState extends State<DiscoverPage> {
                 },
               ),
             ),
-            ...genres.entries.map((entry) => _buildGenreSection(entry.key, entry.value)),
+            ...genres.entries
+                .map((entry) => _buildGenreSection(entry.key, entry.value)),
           ],
         ),
       ),
